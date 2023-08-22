@@ -1,0 +1,20 @@
+{
+  "name": "source-code",
+  "version": "1.0.0",
+  "description": "This is the source code on topic \"REST API\" for the course \"Node.js. Practical\". This project demonstrates a REST server conforming to the [OpenAPI Specification](./openapi.yaml).",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/node-09-rest-api/source-code.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/node-09-rest-api/source-code/issues"
+  },
+  "homepage": "https://github.com/node-09-rest-api/source-code#readme"
+}

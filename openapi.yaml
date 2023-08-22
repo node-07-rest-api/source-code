@@ -1,0 +1,164 @@
+openapi: 3.0.0
+info:
+  title: Market admin panel
+  version: 1.0.0
+paths:
+  /products:
+    get:
+      summary: Get a list of products
+      responses:
+        '200':
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    post:
+      summary: Create a new product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewProduct'
+      responses:
+        '201':
+          description: The created product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductCreated'
+        '400':
+          description: Server failed to create product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorData'
+  /products/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get product
+      responses:
+        '200':
+          description: Product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      summary: Update info about product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PacthProduct'
+      responses:
+        '200':
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductUpdated'
+        '404':
+          description: Server failed to update product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: delete product
+      responses:
+        '200':
+          description: Product deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDeleted'
+        '404':
+          description: Server failed to delete product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 123af2
+        name:
+          type: string
+          example: ProductName
+        price:
+          type: number
+          example: 10
+    PacthProduct:
+      type: object
+      properties:
+        name:
+          type: string
+          example: newName
+        price:
+          type: number
+          example: 10
+    NewProduct:
+      type: object
+      required:
+        - name
+        - price
+      properties:
+        name:
+          type: string
+          example: ProductName
+        price:
+          type: number
+          example: 34
+    ProductCreated:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Product added successfully.
+        productId:
+          type: string
+          example: 123af2
+    ProductUpdated:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Product updated successfully.
+    ProductDeleted:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Product deleted.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Not Found
+    ErrorData:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid data format
