@@ -7,9 +7,9 @@ const {
 } = require("./controllers/productController");
 
 const router = (req, res) => {
-  const { pathname } = url.parse(req.url);
+  const { pathname, query } = url.parse(req.url, true);
   if (pathname === "/products" && req.method === "GET") {
-    getProducts(res);
+    getProducts(query,res);
   } else if (pathname === "/products" && req.method === "POST") {
     addProduct(req, res);
   } else if (pathname.match(/^\/products\/([a-zA-Z0-9-]+)$/)) {

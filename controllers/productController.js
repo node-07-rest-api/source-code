@@ -2,11 +2,17 @@ const ProductModel = require("../models/productModel");
 const { getRequestBody } = require("../utils");
 /**
  * Get all products
- * @route GET /products
+ * @route GET /products?sorted=inc|dec
  */
-const getProducts = async (res) => {
+const getProducts = async (query, res) => {
   try {
-    const products = await ProductModel.findAll();
+    const products = [...(await ProductModel.findAll())];
+    if (query.sorted === "inc") {
+      products.sort((a, b) => a.price - b.price);
+    }
+    else if (query.sorted === "dec") {
+      products.sort((a, b) => b.price - a.price);
+    }
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(products));
   } catch (e) {
@@ -80,5 +86,5 @@ module.exports = {
   getProducts,
   addProduct,
   getProductById,
-  deleteProductById
+  deleteProductById,
 };
