@@ -34,7 +34,27 @@ const addProduct = async (req, res) => {
   }
 };
 
+/**
+ * Get product bu its` id
+ * @route GET /products/{id}
+ */
+const getProductById = async (id, res) => {
+  try {
+    const product = await ProductModel.findById(id);
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(product));
+  } catch (e) {
+    res.writeHead(404, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify({
+        error: e.message,
+      })
+    );
+  }
+};
+
 module.exports = {
   getProducts,
   addProduct,
+  getProductById,
 };

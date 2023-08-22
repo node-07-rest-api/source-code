@@ -15,4 +15,11 @@ const create = (product) =>
     resolve(newProduct);
   });
 
-module.exports = { findAll, create };
+const findById = (id) =>
+  new Promise((resolve, reject) => {
+    const product = products.find((product) => String(id) === String(product.id));
+    if (product) resolve(product);
+    reject(new Error("Not found"));
+  });
+
+module.exports = { findAll, create, findById };
