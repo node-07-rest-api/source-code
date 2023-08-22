@@ -3,6 +3,7 @@ const {
   getProducts,
   addProduct,
   getProductById,
+  deleteProductById,
 } = require("./controllers/productController");
 
 const router = (req, res) => {
@@ -16,7 +17,7 @@ const router = (req, res) => {
     if (req.method === "GET") {
       getProductById(id, res);
     } else if (req.method === "DELETE") {
-      res.end("product DELETE");
+      deleteProductById(id, res);
     } else if (req.method === "PATCH") {
       res.end("product PATCH");
     }

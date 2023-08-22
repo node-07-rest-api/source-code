@@ -17,9 +17,21 @@ const create = (product) =>
 
 const findById = (id) =>
   new Promise((resolve, reject) => {
-    const product = products.find((product) => String(id) === String(product.id));
+    const product = products.find(
+      (product) => String(id) === String(product.id)
+    );
     if (product) resolve(product);
     reject(new Error("Not found"));
   });
 
-module.exports = { findAll, create, findById };
+const deleteById = (id) =>
+  new Promise((resolve, reject) => {
+    const productIndex = products.findIndex(
+      (product) => String(id) === String(product.id)
+    );
+    if (productIndex === -1) reject(new Error("Not found"));
+    products.splice(productIndex, 1);
+    resolve();
+  });
+
+module.exports = { findAll, create, findById, deleteById };

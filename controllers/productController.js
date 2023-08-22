@@ -53,8 +53,32 @@ const getProductById = async (id, res) => {
   }
 };
 
+/**
+ * Delete product bu its` id
+ * @route DELETE /products/{id}
+ */
+const deleteProductById = async (id, res) => {
+  try {
+    await ProductModel.deleteById(id);
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify({
+        message: "Product deleted.",
+      })
+    );
+  } catch (e) {
+    res.writeHead(404, { "Content-Type": "application/json" });
+    res.end(
+      JSON.stringify({
+        error: e.message,
+      })
+    );
+  }
+};
+
 module.exports = {
   getProducts,
   addProduct,
   getProductById,
+  deleteProductById
 };
